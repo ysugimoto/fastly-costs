@@ -1,0 +1,30 @@
+{
+  "name": "fastly-costs",
+  "version": "0.6.0",
+  "type": "module",
+  "description": "Calculate Fastly billing costs per services",
+  "main": "dist/index.mjs",
+  "scripts": {
+    "test": "tsc && vitest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ysugimoto/fastly-costs.git"
+  },
+  "keywords": [
+    "fastly",
+    "billing"
+  ],
+  "author": "ysugimoto",
+  "license": "MIT",
+  "devDependencies": {
+    "@biomejs/biome": "^1.5.3",
+    "@types/node": "^20.11.19",
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.2"
+  },
+  "dependencies": {
+    "commander": "^12.0.0",
+    "dayjs": "^1.11.10"
+  }
+}
