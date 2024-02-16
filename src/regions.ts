@@ -1,3 +1,4 @@
+// Fastly declares billing regions, following words are all.
 export const regions = [
   "usa",
   "europe",
@@ -8,4 +9,3 @@ export const regions = [
   "africa_std",
   "southamerica_std",
 ] as const;
-
