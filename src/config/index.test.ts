@@ -1,4 +1,4 @@
-import { gradualyDiscount } from "./calculate.js";
+import { gradualyDiscount } from "./index.js";
 
 describe("Calculator tests", () => {
   it("gradualyDiscount() returns step-by-step discounted cost", () => {

@@ -1,4 +1,4 @@
-import { FastlyClient } from "./client.js";
+import fastly from "./fastly";
 
 export * from "./types.js";
-export default FastlyClient;
+export default fastly;

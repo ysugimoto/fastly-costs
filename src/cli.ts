@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 
-import { Command } from "commander";
+import { Command, OptionValues } from "commander";
 import { promises as fs } from "node:fs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { type SpanningCellConfig, table } from "table";
 import dayjs from "dayjs";
 
-import { FastlyClient } from "./client.js";
+import fastly from "./fastly";
 import type { Rate, Cost, CostParameter } from "./types.js";
 import { regions } from "./regions.js";
 
@@ -112,18 +112,46 @@ function display(params: CostParameter, costs: Array<Cost>) {
       columns: [
         { alignment: "center", width: 30, verticalAlignment: "middle" },
         { alignment: "left" },
-        { alignment: "right"},
-        { alignment: "right"},
-        { alignment: "right"},
-        { alignment: "right"},
+        { alignment: "right" },
+        { alignment: "right" },
+        { alignment: "right" },
+        { alignment: "right" },
       ],
       spanningCells,
     }),
   );
 }
 
-(async () => {
+async function run(options: OptionValues) {
   const start = Date.now();
+  const config = await getConfig(options.config);
+  validateConfig(config);
+  const client = fastly.client(process.env.FASTLY_API_TOKEN);
+  const now = dayjs();
+  const params = {
+    start: options.start || now.subtract(2, "d").format("YYYY-MM-DD"),
+    end: options.end || now.subtract(1, "d").format("YYYY-MM-DD"),
+  };
+  const costs = await client.costs(params, config);
+
+  // Output - display table or JSON
+  if (options.json) {
+    console.log(JSON.stringify({ ...params, data: costs }, null, "  "));
+  } else {
+    display(params, costs);
+    console.log(`Process took ${Date.now() - start} ms.`);
+  }
+}
+
+(async () => {
+  // Check Fastly Api Key is specified in environment variable
+  if (!process.env.FASTLY_API_TOKEN) {
+    console.error(
+      "Fastly Api Key must be specified in FASTLY_API_TOKEN environment variable",
+    );
+    process.exit(1);
+  }
+
   const pkgJson: { version: string; description: string } = JSON.parse(
     await fs.readFile(pkgJsonpath, "utf8"),
   );
@@ -139,26 +167,5 @@ function display(params: CostParameter, costs: Array<Cost>) {
     .option("--json", "Output cost data as JSON")
     .parse();
 
-  // Check Fastly Api Key is specified in environment variable
-  if (!process.env.FASTLY_API_TOKEN) {
-    console.error("Fastly Api Key must be specified in FASTLY_API_TOKEN environment variable");
-    process.exit(1);
-  }
-
-  const options = program.opts();
-  const config = await getConfig(options.config);
-  validateConfig(config);
-  const client = new FastlyClient(config);
-  const now = dayjs();
-  const params = {
-    start: options.start || now.subtract(2, "d").format("YYYY-MM-DD"),
-    end: options.end || now.subtract(1, "d").format("YYYY-MM-DD"),
-  };
-  const costs = await client.costs(params);
-  if (options.json) {
-    console.log(JSON.stringify({ ...params, data: costs }, null, "  "));
-  } else {
-    display(params, costs);
-    console.log(`Process took ${Date.now() - start} ms.`);
-  }
+  run(program.opts());
 })();

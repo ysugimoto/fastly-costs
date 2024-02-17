@@ -1,5 +1,5 @@
 import type { StatAPISchema } from "./schema.js";
-import type { Rate, Region, CostStatistics, BillingUnits } from "./types.js";
+import type { Rate, Region, CostStatistics, BillingUnits } from "../types.js";
 
 type Calculator = Rate[Region];
 
@@ -60,4 +60,3 @@ export function calculateBillingUnits(
     computeDurations: (computeDurations / 1000) * computeDurationUnit,
   };
 }
-

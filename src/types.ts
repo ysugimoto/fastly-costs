@@ -1,6 +1,6 @@
 // Declare types which we need in this library.
 
-import type { ServiceAPISchema } from "./schema.js";
+import type { ServiceAPISchema } from "./fastly/schema.js";
 import { regions } from "./regions.js";
 
 export type Region = (typeof regions)[number];
