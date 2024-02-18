@@ -53,11 +53,7 @@ async function run(config: string, options: OptionValues) {
   program
     .version(pkgJson.version)
     .description(pkgJson.description)
-    .argument(
-      "[filename]",
-      "Price configuration file",
-      path.join(process.cwd(), "./prices.toml"),
-    )
+    .argument("[filename]", "Price configuration file", "./prices.toml")
     .option(
       "-s, --start <fromDate>",
       "Start date of billing - YYYY-MM-DD format",

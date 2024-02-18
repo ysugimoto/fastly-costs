@@ -2,7 +2,7 @@
   "name": "fastly-costs",
   "version": "0.6.4",
   "type": "module",
-  "description": "Calculate Fastly billing costs per services",
+  "description": "Calculate Fastly billing costs per service",
   "bin": {
     "fastly-costs": "dist/cli/index.js"
   },
