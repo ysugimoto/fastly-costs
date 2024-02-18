@@ -1,22 +1,22 @@
 # fastly-costs
 
-The Fastly cost calculator for each services in your account.
+The Fastly cost calculator for each service in your account.
 
 ## Motivation
 
-Fastly's billing provides total costs for the customer account. However, we ofter would like to know how is specific service billed.
-This package prodices individual service cost as the following:
+Fastly's billing provides the total costs for the customer account. However, we often would like to know how is specific service billed.
+This package provides individual service costs as the following:
 
-- `bandwidth`: response bandwith per Gigabytes
+- `bandwidth`: response bandwidth per Gigabytes
 - `requests`: received requests per 10K
 - `computeRequests`: Fastly Compute received requests per 1M
 - `computeDurations`: Fastly Compute cost by CPU GB-second durations
 
-Especially, Fastly Compute pricing is pretty difficult to calculate so this package support to calculate easily.
+Especially, Fastly Compute pricing is especially difficult to calculate so this package supports to calculation easily.
 
 ## Usage
 
-Install via npm registry. We have `bin` command so we recommends to install as global:
+Install via npm registry. We have `bin` command so we recommend to install as global:
 
 ```shell
 npm install -g fastly-costs
@@ -25,29 +25,31 @@ npm install -g fastly-costs
 Then you can use `fastly-costs` command on your CLI:
 
 ```shell
-Usage: fastly-costs [options]
+Usage: index [options] [filename]
 
-Calculate Fastly billing costs per services
+Calculate Fastly billing costs per service
+
+Arguments:
+  filename                Price configuration file (default: "./prices.toml")
 
 Options:
--V, --version            output the version number
--c, --config <filepath>  Override use configration filepath
--s, --start <fromDate>   Start date of billing - YYYY-MM-DD format
--e, --end <toDate>       End date of billing - YYYY-MM-DD format
---json                   Output cost data as JSON
--h, --help               display help for command
+  -V, --version           output the version number
+  -s, --start <fromDate>  Start date of billing - YYYY-MM-DD format
+  -e, --end <toDate>      End date of billing - YYYY-MM-DD format
+  --json                  Output cost data as JSON
+  -h, --help              display help for command
 ```
 
-See following sections to run completely.
+See the following sections to run successfully.
 
 ## API Token
 
-Note that before run this command, you need to set `FASTLY_API_TOKEN` environment variable that Fastly's API Token.
+Note that before running this command, you need to set `FASTLY_API_TOKEN` environment variable that Fastly's API Token.
 The token is enough to have `global:read` permission due to this package only calls read-related APIs.
 
 ## Pricing Configuration
 
-Occasionally you have specific contract with Fastly - volume discounts - so you can configure the pricing rate for each Fastly regions.
+Occasionally you have a specific contract with Fastly - volume discounts - so you can configure the pricing rate for each Fastly region.
 To configure the pricing rate, you need to create `prices.toml` in your environment and pass to the command:
 
 ```shell
@@ -58,13 +60,13 @@ The `price.toml` format must be the following:
 
 ```toml
 [region]
-bandwidth = [number: bandwith price rate per unit (GB)]
-requests = [number: requests price rate per unit (10K)]
-computeRequests = [number: compute request price rate per unit (1M)]
-computeDurations = [number: compute duration price rate per unit (GB-Sec)]
+bandwidth = (number: bandwidth price rate per unit (GB))
+requests = (number: requests price rate per unit (10K))
+computeRequests = (number: compute request price rate per unit (1M))
+computeDurations = (number: compute duration price rate per unit (GB-Sec))
 ```
 
-If you have gradual volume discount, you should specify as:
+If you have a gradual volume discount, you should specify as:
 
 ```toml
 [region]
@@ -75,13 +77,13 @@ bandwidth = [
 ]
 ```
 
-On the above case, request in usa region will be calculate as:
+In the above case, the request in `usa` region will be calculated as:
 
 1. Until 5,000 units (5,000 GB = 5TB), price rate is 0.1 doller
 2. Until 10,000 units (10,000 GB = 10TB), price rate is 0.08 doller
 3. Over the 10,000 units, price rate is 0.05 (-1 means unlimited, over the unit)
 
-You MUST specify all reagins price rate that Fastly bills for:
+You MUST specify all regions price rates that Fastly bills for:
 
 - asia
 - europe
@@ -94,9 +96,10 @@ You MUST specify all reagins price rate that Fastly bills for:
 
 That's all, you are ready to run the `fastly-costs` command :+1: the command displays:
 
-[image]
+![CleanShot 2024-02-18 at 22 00 54@2x](https://github.com/ysugimoto/fastly-costs/assets/1000401/31e20db9-043a-4ed1-a3a1-72b5ca2d2ac9)
 
-If you want to change the calculate range, you can specify `-s` (start) and `-e` (end) options, for example:
+
+If you want to change the calculated range, you can specify `-s` (start) and `-e` (end) options, for example:
 
 ```
 fastly-costs -s 2024-01-01 -e 2024-02-01 /path/to/prices.toml
