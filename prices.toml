@@ -13,9 +13,9 @@
 ##
 ## [usa]
 ## bandwidth = [
-##   [5000, 0.1],
-##   [10000, 0.08],
-##   [-1, 0.05],
+##   { threshold = 5000, price = 0.1 },
+##   { threshold = 10000, price = 0.08 },
+##   { threshold = -1, price = 0.05 },
 ## ]
 ##
 ## On the above case, request in usa region will be calculate as:
@@ -26,8 +26,7 @@
 ## You MUST specify all reagins price rate that Fastly bills for:
 ##   asia, europe, anzac, asia_india, asia_southkorea, africa_std, southamerica_std, usa
 ##
-
- [asia]
+[asia]
 bandwidth = 0.12
 requests = 0.009
 computeRequests = 0.4

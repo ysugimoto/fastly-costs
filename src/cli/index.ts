@@ -51,6 +51,7 @@ async function run(config: string, options: OptionValues) {
     await fs.readFile(pkgJsonpath, "utf8"),
   );
   program
+    .name("fastly-costs")
     .version(pkgJson.version)
     .description(pkgJson.description)
     .argument("[filename]", "Price configuration file", "./prices.toml")

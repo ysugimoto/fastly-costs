@@ -25,7 +25,7 @@ npm install -g fastly-costs
 Then you can use `fastly-costs` command on your CLI:
 
 ```shell
-Usage: index [options] [filename]
+Usage: fastly-costs [options] [filename]
 
 Calculate Fastly billing costs per service
 
@@ -71,9 +71,9 @@ If you have a gradual volume discount, you should specify as:
 ```toml
 [region]
 bandwidth = [
-  [5000, 0.1],
-  [10000, 0.08],
-  [-1, 0.05],
+  { threshold = 5000, price = 0.1 },
+  { threshold = 10000, price = 0.08 },
+  { threshold = -1, price = 0.05 },
 ]
 ```
 
@@ -82,6 +82,8 @@ In the above case, the request in `usa` region will be calculated as:
 1. Until 5,000 units (5,000 GB = 5TB), price rate is 0.1 doller
 2. Until 10,000 units (10,000 GB = 10TB), price rate is 0.08 doller
 3. Over the 10,000 units, price rate is 0.05 (-1 means unlimited, over the unit)
+
+See [prive.toml](https://github.com/ysugimoto/fastly-costs/blob/main/prices.toml) example in this repository.
 
 You MUST specify all regions price rates that Fastly bills for:
 
