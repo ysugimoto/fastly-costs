@@ -2,7 +2,6 @@
 
 import { Command, OptionValues } from "commander";
 import { promises as fs } from "node:fs";
-import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { type SpanningCellConfig, table } from "table";
 import dayjs from "dayjs";
@@ -11,10 +10,7 @@ import fastly from "./fastly";
 import type { Rate, Cost, CostParameter } from "./types.js";
 import { regions } from "./regions.js";
 
-const pkgJsonpath = path.join(
-  path.dirname(fileURLToPath(import.meta.url)),
-  "../package.json",
-);
+const pkgJsonpath = path.join(__dirname, "../package.json");
 const program = new Command();
 
 async function getConfig(config: string): Promise<Rate> {
