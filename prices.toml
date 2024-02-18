@@ -1,0 +1,81 @@
+## Fastly price rating configurations
+## The price format is the following:
+##
+## [region]
+## bandwidth = [number: bandwith price rate per unit (GB)]
+## requests = [number: requests price rate per unit (10K)]
+## computeRequests = [number: compute request price rate per unit (1M)]
+## computeDurations = [number: compute duration price rate per unit (GB-Sec)]
+##
+## Also, probably you have a contract of volume discount with Fastly,
+## Then you can express gradual price rate as an array.
+## Following the example of bandwidth gradual discount:
+##
+## [usa]
+## bandwidth = [
+##   [5000, 0.1],
+##   [10000, 0.08],
+##   [-1, 0.05],
+## ]
+##
+## On the above case, request in usa region will be calculate as:
+## 1. Until 5,000 units (5,000 GB = 5TB), price rate is 0.1 doller
+## 2. Until 10,000 units (10,000 GB = 10TB), price rate is 0.08 doller
+## 3. Over the 10,000 units, price rate is 0.05 (-1 means unlimited, over the unit)
+##
+## You MUST specify all reagins price rate that Fastly bills for:
+##   asia, europe, anzac, asia_india, asia_southkorea, africa_std, southamerica_std, usa
+##
+
+ [asia]
+bandwidth = 0.12
+requests = 0.009
+computeRequests = 0.4
+computeDurations = 0.0005
+
+[europe]
+bandwidth = 0.12
+requests = 0.009
+computeRequests = 0.4
+computeDurations = 0.0005
+
+[anzac]
+bandwidth = 0.12
+requests = 0.009
+computeRequests = 0.4
+computeDurations = 0.0005
+
+[asia_india]
+bandwidth = 0.12
+requests = 0.009
+computeRequests = 0.4
+computeDurations = 0.0005
+
+[asia_southkorea]
+bandwidth = 0.12
+requests = 0.009
+computeRequests = 0.4
+computeDurations = 0.0005
+
+[africa_std]
+bandwidth = 0.12
+requests = 0.009
+computeRequests = 0.4
+computeDurations = 0.0005
+
+[southamerica_std]
+bandwidth = 0.12
+requests = 0.009
+computeRequests = 0.4
+computeDurations = 0.0005
+
+[usa]
+bandwidth = [
+  { threshold = 5000, price = 0.1 },
+  { threshold = 10000, price = 0.08 },
+  { price = 0.05 },
+]
+requests = 0.009
+computeRequests = 0.4
+computeDurations = 0.0005
+

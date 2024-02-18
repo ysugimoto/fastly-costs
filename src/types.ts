@@ -1,15 +1,29 @@
 // Declare types which we need in this library.
 
 import type { ServiceAPISchema } from "./fastly/schema.js";
-import { regions } from "./regions.js";
 
+// Fastly declares billing regions, following words are all.
+export const regions = [
+  "usa",
+  "europe",
+  "anzac",
+  "asia",
+  "asia_india",
+  "asia_southkorea",
+  "africa_std",
+  "southamerica_std",
+] as const;
 export type Region = (typeof regions)[number];
 
 // RateExpression is actual cost calculation rate.
 // rate accepts number or function:
 // - number: simple multiple for billing unit
-// - function: special cost calculation for each billing unit e.g gradualy volume discount
-export type RateExpression = number | ((volume: number) => number);
+// - Array: for gradualy discount that depends on customer contract
+export type GraudalyRate = {
+  threshold?: number;
+  price: number;
+};
+export type RateExpression = number | Array<GraudalyRate>;
 export type Rate = {
   [key in Region]: {
     bandwidth: RateExpression;

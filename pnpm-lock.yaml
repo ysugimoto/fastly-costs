@@ -9,6 +9,7 @@ specifiers:
   lint-staged: ^15.2.2
   rimraf: ^5.0.5
   table: ^6.8.1
+  toml: ^3.0.0
   typescript: ^5.3.3
   vitest: ^1.2.2
 
@@ -16,6 +17,7 @@ dependencies:
   commander: 12.0.0
   dayjs: 1.11.10
   table: 6.8.1
+  toml: 3.0.0
 
 devDependencies:
   '@biomejs/biome': 1.5.3
@@ -1305,6 +1307,10 @@ packages:
     dependencies:
       is-number: 7.0.0
     dev: true
+
+  /toml/3.0.0:
+    resolution: {integrity: sha512-y/mWCZinnvxjTKYhJ+pYxwD0mRLVvOtdS2Awbgxln6iEnt4rk0yBxeSBHkGJcPucRiG0e55mwWp+g/05rsrd6w==}
+    dev: false
 
   /type-detect/4.0.8:
     resolution: {integrity: sha512-0fr/mIH1dlO+x7TlcMy+bIDqKPsw/70tVyeHW787goQjhmqaZe10uwLujubK9q9Lg6Fiho1KUKDYz0Z7k7g5/g==}

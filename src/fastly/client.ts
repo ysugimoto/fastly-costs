@@ -6,7 +6,7 @@ import type {
   CostParameter,
   Region,
 } from "../types.js";
-import { regions } from "../regions.js";
+import { regions } from "../types.js";
 import { calculate } from "./calculate.js";
 import { sendRequest } from "./request.js";
 import { listServices } from "./services.js";
@@ -35,7 +35,7 @@ class FastlyClient {
   }
 
   // costs() calculates billing costs between the date rage for each services in the account.
-  // rate, second argument is cost calculation rate which is defined at user config.
+  // rate - the second argument - is cost calculation rate which is defined at user config.
   // This is because rate is different for each account, it depends on the contract.
   // Some customers will have a volume discount for specific region, deliver, bandwidth, etc.
   public async costs(params: CostParameter, rate: Rate): Promise<Array<Cost>> {

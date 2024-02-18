@@ -1,5 +1,11 @@
 import type { StatAPISchema } from "./schema.js";
-import type { Rate, Region, CostStatistics, BillingUnits } from "../types.js";
+import type {
+  Rate,
+  Region,
+  GraudalyRate,
+  CostStatistics,
+  BillingUnits,
+} from "../types.js";
 
 type Calculator = Rate[Region];
 
@@ -18,22 +24,18 @@ export function calculate(
     calculateBillingUnits(stats);
 
   return {
-    bandwidth:
-      typeof calc.bandwidth === "function"
-        ? calc.bandwidth(bandwidth)
-        : calc.bandwidth * bandwidth,
-    requests:
-      typeof calc.requests === "function"
-        ? calc.requests(requests)
-        : calc.requests * requests,
-    computeRequests:
-      typeof calc.computeRequests === "function"
-        ? calc.computeRequests(computeRequests)
-        : calc.computeRequests * computeRequests,
-    computeDurations:
-      typeof calc.computeDurations === "function"
-        ? calc.computeDurations(computeDurations)
-        : calc.computeDurations * computeDurations,
+    bandwidth: Array.isArray(calc.bandwidth)
+      ? gradualyDiscount(bandwidth, calc.bandwidth)
+      : calc.bandwidth * bandwidth,
+    requests: Array.isArray(calc.requests)
+      ? gradualyDiscount(requests, calc.requests)
+      : calc.requests * requests,
+    computeRequests: Array.isArray(calc.computeRequests)
+      ? gradualyDiscount(computeRequests, calc.computeRequests)
+      : calc.computeRequests * computeRequests,
+    computeDurations: Array.isArray(calc.computeDurations)
+      ? gradualyDiscount(computeDurations, calc.computeDurations)
+      : calc.computeDurations * computeDurations,
   };
 }
 
@@ -59,4 +61,29 @@ export function calculateBillingUnits(
     computeRequests: computeRequests / computeRequestUnit,
     computeDurations: (computeDurations / 1000) * computeDurationUnit,
   };
+}
+
+// Utility function for user config - useful for volume discount with gradualy units
+export function gradualyDiscount(
+  volume: number,
+  gradualy: Array<GraudalyRate>,
+): number {
+  let unit = volume;
+  let cost = 0;
+  let basis = 0;
+  for (const { threshold = -1, price } of gradualy) {
+    // minus threshold means over the unit threshold, calculate cost with remaining volumes
+    if (threshold === -1) {
+      cost += unit * price;
+      break;
+    }
+    if (unit <= threshold - basis) {
+      cost += unit * price;
+      break;
+    }
+    cost += (threshold - basis) * price;
+    unit -= threshold - basis;
+    basis = threshold;
+  }
+  return cost;
 }

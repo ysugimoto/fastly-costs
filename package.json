@@ -4,15 +4,9 @@
   "type": "module",
   "description": "Calculate Fastly billing costs per services",
   "bin": {
-    "fastly-costs": "dist/cli.js"
+    "fastly-costs": "dist/cli/index.js"
   },
-  "main": "dist/index.mjs",
-  "exports": {
-    "./config": {
-      "types": "./dist/config/index.d.ts",
-      "default": "./dist/config/index.js"
-    }
-  },
+  "main": "dist/index.js",
   "scripts": {
     "test": "vitest",
     "lint": "biome lint ./src",
@@ -44,7 +38,8 @@
   "dependencies": {
     "commander": "^12.0.0",
     "dayjs": "^1.11.10",
-    "table": "^6.8.1"
+    "table": "^6.8.1",
+    "toml": "^3.0.0"
   },
   "husky": {
     "hooks": {
