@@ -77,7 +77,7 @@ bandwidth = [
 ]
 ```
 
-In the above case, the request in `usa` region will be calculated as:
+In the above case, the bandwidth in `usa` region will be calculated as:
 
 1. Until 5,000 units (5,000 GB = 5TB), price rate is 0.1 doller
 2. Until 10,000 units (10,000 GB = 10TB), price rate is 0.08 doller
