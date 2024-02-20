@@ -18,10 +18,9 @@ const computeDurationUnit = 128 / 1024; // Bills per GB-Sec
 // Calculate costs for each billing type with user's rate
 export function calculate(
   calc: Calculator,
-  stats: Array<StatAPISchema>,
+  units: BillingUnits,
 ): CostStatistics {
-  const { bandwidth, requests, computeRequests, computeDurations } =
-    calculateBillingUnits(stats);
+  const { bandwidth, requests, computeRequests, computeDurations } = units;
 
   return {
     bandwidth: Array.isArray(calc.bandwidth)
@@ -39,10 +38,10 @@ export function calculate(
   };
 }
 
-// Normalize statistics to billing unit
-export function calculateBillingUnits(
+// Calculate sum of statistics
+export function calculateStatistics(
   stats: Array<StatAPISchema>,
-): BillingUnits {
+): StatAPISchema {
   let bandwidth = 0;
   let requests = 0;
   let computeRequests = 0;
@@ -56,10 +55,27 @@ export function calculateBillingUnits(
   }
 
   return {
-    bandwidth: bandwidth / bandwidthUnit,
-    requests: requests / requestUnit,
-    computeRequests: computeRequests / computeRequestUnit,
-    computeDurations: (computeDurations / 1000) * computeDurationUnit,
+    bandwidth,
+    requests,
+    compute_requests: computeRequests,
+    compute_request_time_billed_ms: computeDurations,
+  };
+}
+
+// Calculate statistics to billing unit
+export function calculateBillingUnits(stat: StatAPISchema): BillingUnits {
+  // Avoid zero division
+  return {
+    bandwidth: stat.bandwidth > 0 ? stat.bandwidth / bandwidthUnit : 0,
+    requests: stat.requests > 0 ? stat.requests / requestUnit : 0,
+    computeRequests:
+      stat.compute_requests > 0
+        ? stat.compute_requests / computeRequestUnit
+        : 0,
+    computeDurations:
+      stat.compute_request_time_billed_ms > 0
+        ? (stat.compute_request_time_billed_ms / 1000) * computeDurationUnit
+        : 0,
   };
 }
 

@@ -6,6 +6,7 @@ on:
       - "v*.*.*"
     branches-ignore:
       - "*"
+      - "*/*"
 
 jobs:
   publish:

@@ -19,10 +19,10 @@ export function display(params: CostParameter, costs: Array<Cost>) {
   tableData.push([
     "Service",
     "Region",
-    "Requests",
-    "Bandwidth",
-    "Compute Requests",
-    "Compute Durations",
+    "Requests (10K unit)",
+    "Bandwidth (1GB unit)",
+    "Compute Requests (1M unit)",
+    "Compute Durations (1GB-Sec unit)",
   ]);
   row++;
 
@@ -30,15 +30,18 @@ export function display(params: CostParameter, costs: Array<Cost>) {
     const keys = Object.keys(cost.costs).sort((a, b) => (a > b ? 1 : -1));
     for (let i = 0; i < keys.length; i++) {
       const region = keys[i];
-      const { requests, bandwidth, computeRequests, computeDurations } =
-        cost.costs[region];
+      const { costs: regionCost, units } = cost.costs[region];
       tableData.push([
         [cost.name, `(${cost.id})`].join("\n"),
         region,
-        `$${requests.toFixed(6)}`,
-        `$${bandwidth.toFixed(6)}`,
-        `$${computeRequests.toFixed(6)}`,
-        `$${computeDurations.toFixed(6)}`,
+        `${units.requests.toFixed(4)} / $${regionCost.requests.toFixed(6)}`,
+        `${units.bandwidth.toFixed(4)} / $${regionCost.bandwidth.toFixed(6)}`,
+        `${units.computeDurations.toFixed(
+          4,
+        )}  / $${regionCost.computeRequests.toFixed(6)}`,
+        `${units.computeDurations.toFixed(
+          4,
+        )} / $${regionCost.computeDurations.toFixed(6)}`,
       ]);
       row++;
       if (i === 0) {

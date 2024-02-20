@@ -1,23 +1,14 @@
 import type { StatAPISchema } from "./schema.js";
-import type {
-  Rate,
-  Cost,
-  CostStatistics,
-  CostParameter,
-  Region,
-} from "../types.js";
+import type { Rate, Cost, CostParameter, Region } from "../types.js";
 import { regions } from "../types.js";
-import { calculate } from "./calculate.js";
+import {
+  calculate,
+  calculateBillingUnits,
+  calculateStatistics,
+} from "./calculate.js";
 import { sendRequest } from "./request.js";
 import { listServices } from "./services.js";
 import { buildQuery } from "./params.js";
-
-const defaultCost: () => CostStatistics = () => ({
-  bandwidth: 0,
-  requests: 0,
-  computeRequests: 0,
-  computeDurations: 0,
-});
 
 export function client(apiKey?: string): FastlyClient {
   return new FastlyClient(apiKey || process.env.FASTLY_API_TOKEN || "");
@@ -55,8 +46,14 @@ class FastlyClient {
             this.apiKey,
             `/stats/service/${service.id}?${qs}`,
           );
-          serviceCosts[region] =
-            data.length > 0 ? calculate(rate[region], data) : defaultCost();
+          const stats = calculateStatistics(data);
+          const units = calculateBillingUnits(stats);
+          const calculated = calculate(rate[region], units);
+          serviceCosts[region] = {
+            stats,
+            units,
+            costs: calculated,
+          };
         }),
       );
       costs.push({ ...service, costs: serviceCosts });
