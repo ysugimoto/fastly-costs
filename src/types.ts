@@ -64,4 +64,5 @@ export type Cost = ServiceAPISchema & {
 export type CostParameter = {
   start: string;
   end: string;
+  service?: string;
 };

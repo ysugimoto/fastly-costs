@@ -43,6 +43,10 @@ class FastlyClient {
     const costs: Array<Cost> = [];
 
     for (const service of services) {
+      // If service filter is provided, check equivalent to listed service id
+      if (params.service && params.service !== service.id) {
+        continue;
+      }
       const serviceCosts: Cost["costs"] = {};
       await Promise.all(
         regions.map(async (region: Region) => {
