@@ -1,6 +1,6 @@
 // Declare types which we need in this library.
 
-import type { ServiceAPISchema } from "./fastly/schema.js";
+import type { ServiceAPISchema, StatAPISchema } from "./fastly/schema.js";
 
 // Fastly declares billing regions, following words are all.
 export const regions = [
@@ -55,7 +55,11 @@ export type BillingUnits = {
 
 export type Cost = ServiceAPISchema & {
   costs: {
-    [key: string]: CostStatistics;
+    [key: string]: {
+      stats: StatAPISchema;
+      costs: CostStatistics;
+      units: BillingUnits;
+    };
   };
 };
 
