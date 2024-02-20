@@ -24,6 +24,7 @@ async function run(config: string, options: OptionValues) {
   const params = {
     start: options.start || now.subtract(1, "d").format("YYYY-MM-DD"),
     end: options.end || now.format("YYYY-MM-DD"),
+    service: options.service,
   };
 
   const client = fastly.client(process.env.FASTLY_API_TOKEN);
@@ -61,6 +62,7 @@ async function run(config: string, options: OptionValues) {
     )
     .option("-e, --end <toDate>", "End date of billing - YYYY-MM-DD format")
     .option("--json", "Output cost data as JSON")
+    .option("--service <filter>", "Filter service for the results")
     .action(async (config: string, options: OptionValues) => {
       await run(config, options);
     });
