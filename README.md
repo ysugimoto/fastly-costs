@@ -12,7 +12,11 @@ This package provides individual service costs as the following:
 - `computeRequests`: Fastly Compute received requests per 1M
 - `computeDurations`: Fastly Compute cost by CPU GB-second durations
 
-Especially, Fastly Compute pricing is especially difficult to calculate so this package supports to calculation easily.
+Especially, Fastly Compute pricing is difficult to calculate so this package supports to calculation easily.
+
+## Disclaimer
+
+This tool calculates the serice costs properly for a single service, but you may find a cost difference if you're using Origin-Shielding or Service Chaining due to a request will be passed to multiple origins or service.
 
 ## Usage
 
