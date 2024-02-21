@@ -26,55 +26,77 @@
 ## You MUST specify all reagins price rate that Fastly bills for:
 ##   asia, europe, anzac, asia_india, asia_southkorea, africa_std, southamerica_std, usa
 ##
+## Following price rates are based on Fastly Official Documentation:
+## https://www.fastly.com/pricing
 [asia]
-bandwidth = 0.12
-requests = 0.009
-computeRequests = 0.4
-computeDurations = 0.0005
+bandwidth = [
+  {threshold = 10000, price = 0.19}
+  {threshold = -1, price = 0.14}
+]
+requests = 0.0090
+computeRequests = 0.50
+computeDurations = 0.000035
 
 [europe]
-bandwidth = 0.12
-requests = 0.009
-computeRequests = 0.4
-computeDurations = 0.0005
+bandwidth = [
+  {threshold = 10000, price = 0.12}
+  {threshold = -1, price = 0.08}
+]
+requests = 0.0075
+computeRequests = 0.50
+computeDurations = 0.000035
 
 [anzac]
-bandwidth = 0.12
-requests = 0.009
-computeRequests = 0.4
-computeDurations = 0.0005
+bandwidth = [
+  {threshold = 10000, price = 0.19}
+  {threshold = -1, price = 0.14}
+]
+requests = 0.0090
+computeRequests = 0.50
+computeDurations = 0.000035
 
 [asia_india]
-bandwidth = 0.12
-requests = 0.009
-computeRequests = 0.4
-computeDurations = 0.0005
+bandwidth = [
+  {threshold = 10000, price = 0.28}
+  {threshold = -1, price = 0.24}
+]
+requests = 0.0160
+computeRequests = 0.50
+computeDurations = 0.000035
 
 [asia_southkorea]
-bandwidth = 0.12
-requests = 0.009
-computeRequests = 0.4
-computeDurations = 0.0005
+bandwidth = [
+  {threshold = 10000, price = 0.28}
+  {threshold = -1, price = 0.24}
+]
+requests = 0.0160
+computeRequests = 0.50
+computeDurations = 0.000035
 
 [africa_std]
-bandwidth = 0.12
-requests = 0.009
-computeRequests = 0.4
-computeDurations = 0.0005
+bandwidth = [
+  {threshold = 10000, price = 0.28}
+  {threshold = -1, price = 0.24}
+]
+requests = 0.0160
+computeRequests = 0.50
+computeDurations = 0.000035
 
 [southamerica_std]
-bandwidth = 0.12
-requests = 0.009
-computeRequests = 0.4
-computeDurations = 0.0005
+bandwidth = [
+  {threshold = 10000, price = 0.19}
+  {threshold = -1, price = 0.14}
+]
+requests = 0.0090
+computeRequests = 0.50
+computeDurations = 0.000035
 
 [usa]
 bandwidth = [
-  { threshold = 5000, price = 0.1 },
-  { threshold = 10000, price = 0.08 },
-  { price = 0.05 },
+  {threshold = 10000, price = 0.12}
+  {threshold = -1, price = 0.08}
 ]
-requests = 0.009
-computeRequests = 0.4
-computeDurations = 0.0005
+requests = 0.0075
+computeRequests = 0.50
+computeDurations = 0.000035
 
