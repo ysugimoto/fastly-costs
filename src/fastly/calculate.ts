@@ -65,9 +65,15 @@ export function calculateStatistics(
 // Calculate statistics to billing unit
 export function calculateBillingUnits(stat: StatAPISchema): BillingUnits {
   // Avoid zero division
+  // Note that on Compute request, the requests field always set to 0.
+  // But actually Fastly bills for the request (means Edge POP request),
+  // we need to treat requests as the same as compute_requests.
+  const requests =
+    stat.compute_requests > 0 ? stat.compute_requests : stat.requests;
+
   return {
     bandwidth: stat.bandwidth > 0 ? stat.bandwidth / bandwidthUnit : 0,
-    requests: stat.requests > 0 ? stat.requests / requestUnit : 0,
+    requests: requests > 0 ? requests / requestUnit : 0,
     computeRequests:
       stat.compute_requests > 0
         ? stat.compute_requests / computeRequestUnit
