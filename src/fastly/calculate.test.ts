@@ -34,7 +34,7 @@ describe("calculate() test", () => {
     const result = calculate(c, units);
     expect(result).toMatchObject({
       bandwidth: 2,
-      requests: 2,
+      requests: 200,
       computeRequests: 2,
       computeDurations: 25,
     });
@@ -62,7 +62,7 @@ describe("calculateBillingUnits() test", () => {
     const { bandwidth, requests, computeRequests, computeDurations } =
       calculateBillingUnits(s);
     expect(bandwidth).toBe(20);
-    expect(requests).toBe(20);
+    expect(requests).toBe(2000);
     expect(computeRequests).toBe(20);
     expect(computeDurations).toBe(250);
   });
