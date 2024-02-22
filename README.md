@@ -87,7 +87,7 @@ In the above case, the bandwidth in `usa` region will be calculated as:
 2. Until 10,000 units (10,000 GB = 10TB), price rate is 0.08 doller
 3. Over the 10,000 units, price rate is 0.05 (-1 means unlimited, over the unit)
 
-See [prive.toml](https://github.com/ysugimoto/fastly-costs/blob/main/prices.toml) example in this repository.
+See [prices.toml](https://github.com/ysugimoto/fastly-costs/blob/main/prices.toml) example in this repository.
 
 You MUST specify all regions price rates that Fastly bills for:
 
