@@ -30,8 +30,8 @@
 ## https://www.fastly.com/pricing
 [asia]
 bandwidth = [
-  {threshold = 10000, price = 0.19}
-  {threshold = -1, price = 0.14}
+  {threshold = 10000, price = 0.19},
+  {threshold = -1, price = 0.14},
 ]
 requests = 0.0090
 computeRequests = 0.50
@@ -39,8 +39,8 @@ computeDurations = 0.000035
 
 [europe]
 bandwidth = [
-  {threshold = 10000, price = 0.12}
-  {threshold = -1, price = 0.08}
+  {threshold = 10000, price = 0.12},
+  {threshold = -1, price = 0.08},
 ]
 requests = 0.0075
 computeRequests = 0.50
@@ -48,8 +48,8 @@ computeDurations = 0.000035
 
 [anzac]
 bandwidth = [
-  {threshold = 10000, price = 0.19}
-  {threshold = -1, price = 0.14}
+  {threshold = 10000, price = 0.19},
+  {threshold = -1, price = 0.14},
 ]
 requests = 0.0090
 computeRequests = 0.50
@@ -57,8 +57,8 @@ computeDurations = 0.000035
 
 [asia_india]
 bandwidth = [
-  {threshold = 10000, price = 0.28}
-  {threshold = -1, price = 0.24}
+  {threshold = 10000, price = 0.28},
+  {threshold = -1, price = 0.24},
 ]
 requests = 0.0160
 computeRequests = 0.50
@@ -66,8 +66,8 @@ computeDurations = 0.000035
 
 [asia_southkorea]
 bandwidth = [
-  {threshold = 10000, price = 0.28}
-  {threshold = -1, price = 0.24}
+  {threshold = 10000, price = 0.28},
+  {threshold = -1, price = 0.24},
 ]
 requests = 0.0160
 computeRequests = 0.50
@@ -75,8 +75,8 @@ computeDurations = 0.000035
 
 [africa_std]
 bandwidth = [
-  {threshold = 10000, price = 0.28}
-  {threshold = -1, price = 0.24}
+  {threshold = 10000, price = 0.28},
+  {threshold = -1, price = 0.24},
 ]
 requests = 0.0160
 computeRequests = 0.50
@@ -84,8 +84,8 @@ computeDurations = 0.000035
 
 [southamerica_std]
 bandwidth = [
-  {threshold = 10000, price = 0.19}
-  {threshold = -1, price = 0.14}
+  {threshold = 10000, price = 0.19},
+  {threshold = -1, price = 0.14},
 ]
 requests = 0.0090
 computeRequests = 0.50
@@ -93,8 +93,8 @@ computeDurations = 0.000035
 
 [usa]
 bandwidth = [
-  {threshold = 10000, price = 0.12}
-  {threshold = -1, price = 0.08}
+  {threshold = 10000, price = 0.12},
+  {threshold = -1, price = 0.08},
 ]
 requests = 0.0075
 computeRequests = 0.50
