@@ -41,6 +41,7 @@ Options:
   -s, --start <fromDate>  Start date of billing - YYYY-MM-DD format
   -e, --end <toDate>      End date of billing - YYYY-MM-DD format
   --json                  Output cost data as JSON
+  --service <filter>      Filter service for the results
   -h, --help              display help for command
 ```
 
